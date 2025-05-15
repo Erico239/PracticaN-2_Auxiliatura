@@ -1,0 +1,125 @@
+"""
+1. Modelar diferentes tipos de vehículos. Las clases deben tener las siguientes características:
+Vehículo<marca, modelo, año, precio_base>
+Métodos: mostrar_info() muestra la información básica del vehículo
+Coche (hereda de Vehículo)< num_puertas, tipo_combustible>
+Métodos: mostrar_info() debe mostrar la información básica más los atributos adicionales
+Moto (hereda de Vehículo)< cilindrada, tipo_motor>
+Métodos: mostrar_info() debe mostrar la información básica más los atributos adicionales
+"""
+
+class Vehiculo:
+    def __init__(self, marca: str, modelo: str, año: int, precio_base: float):
+        self._marca = marca
+        self._modelo = modelo
+        self._año = año
+        self._precio_base = precio_base
+
+    @property
+    def marca(self) -> str:
+        return self._marca
+    
+    @marca.setter
+    def marca(self, value: str):
+        self._marca = value
+
+    @property
+    def modelo(self) -> str:
+        return self._modelo
+    
+    @modelo.setter
+    def modelo(self, value: str):
+        self._modelo = value
+
+    @property
+    def año(self) -> int:
+        return self._año
+    
+    @año.setter
+    def año(self, value: int):
+        self._año = value
+
+    @property
+    def precio_base(self) -> float:
+        return self._precio_base
+    
+    @precio_base.setter
+    def precio_base(self, value: float):
+        self._precio_base = value
+
+    def mostrar_info(self) -> str:
+        return f"Marca: {self.marca}, Modelo: {self.modelo}, Año: {self.año}, Precio: ${self.precio_base:.2f}"
+
+class Coche(Vehiculo):
+    def __init__(self, marca: str, modelo: str, año: int, precio_base: float, 
+                 puertas: int, combustible: str):
+        super().__init__(marca, modelo, año, precio_base)
+        self._puertas = puertas
+        self._combustible = combustible
+
+    @property
+    def puertas(self) -> int:
+        return self._puertas
+    
+    @puertas.setter
+    def puertas(self, value: int):
+        self._puertas = value
+
+    @property
+    def combustible(self) -> str:
+        return self._combustible
+    
+    @combustible.setter
+    def combustible(self, value: str):
+        self._combustible = value
+
+    def mostrar_info(self) -> str:
+        return f"{super().mostrar_info()}, Puertas: {self.puertas}, Combustible: {self.combustible}"
+
+class Moto(Vehiculo):
+    def __init__(self, marca: str, modelo: str, año: int, precio_base: float, 
+                 cilindrada: str, motor: str):
+        super().__init__(marca, modelo, año, precio_base)
+        self._cilindrada = cilindrada
+        self._motor = motor
+
+    @property
+    def cilindrada(self) -> str:
+        return self._cilindrada
+    
+    @cilindrada.setter
+    def cilindrada(self, value: str):
+        self._cilindrada = value
+
+    @property
+    def motor(self) -> str:
+        return self._motor
+    
+    @motor.setter
+    def motor(self, value: str):
+        self._motor = value
+
+    def mostrar_info(self) -> str:
+        return f"{super().mostrar_info()}, Cilindrada: {self.cilindrada}, Motor: {self.motor}"
+
+if __name__ == "__main__":
+    vehiculos = [
+        Coche("Toyota", "Corolla", 2020, 25000, 4, "Gasolina"),
+        Coche("Honda", "Civic", 2025, 30000, 5, "Híbrido"),
+        Moto("Yamaha", "MT-07", 2025, 8000, "700cc", "4T"),
+        Moto("Kawasaki", "Ninja", 2024, 12000, "650cc", "2T")
+    ]
+
+    print("=== Todos los vehículos ===")
+    for v in vehiculos:
+        print(v.mostrar_info())
+
+    print("\n=== Coches con +4 puertas ===")
+    for v in vehiculos:
+        if isinstance(v, Coche) and v.puertas > 4:
+            print(v.mostrar_info())
+
+    print("\n=== Vehículos 2025 ===")
+    for v in vehiculos:
+        if v.año == 2025:
+            print(v.mostrar_info())
